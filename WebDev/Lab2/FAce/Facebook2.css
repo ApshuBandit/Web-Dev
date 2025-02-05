@@ -1,0 +1,133 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #1c1e21;
+}
+.container {
+    max-width: 1000px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.left-section {
+    flex: 1;
+}
+
+.left-section h1 {
+    font-size: 3.5rem;
+    color: #1877f2;
+    margin-bottom: 15px;
+}
+.left-section p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #606770;
+}
+
+.right-section {
+    flex: 1;
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.login-form {
+    width: 100%;
+    max-width: 360px;
+    
+}
+.login-form input {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.login-form input:focus {
+    border-color: #1877f2;
+    outline: none;
+    box-shadow: 0 0 5px rgba(24, 119, 242, 0.5);
+}
+
+.login-form button {
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    background-color: #4CAF50;
+    width: 100%;
+    font-size: 16px;
+}
+
+.login-form button:hover {
+    background-color: #145dbd;
+    
+}
+
+
+.forgot-password {
+    text-align: center;
+    margin-top: 200px;
+}
+
+.forgot-password a {
+    color: #1877f2;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+}
+
+
+.create-account {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.create-account button {
+    background-color: #42b72a;
+    padding: 15px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.create-account button:hover {
+    background-color: #36a420;
+}
+label {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    text-align: left;
+    color: #555;
+    font-weight: bold;
+}
