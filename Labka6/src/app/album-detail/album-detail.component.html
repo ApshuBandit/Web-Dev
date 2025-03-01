@@ -1,0 +1,28 @@
+<div class="album-container">
+    <h1>Album Details</h1>
+    <div *ngIf="album" class="album-info">
+      <input [(ngModel)]="album.title" class="album-title">
+      <button (click)="save()">Save</button>
+      <button (click)="goBack()">Return</button>
+      <a [routerLink]="['/albums', album.id, 'photos']" class="photo-link">Photos</a>
+    </div>
+  
+    <h2>Add Photo</h2>
+    <div class="photo-inputs">
+      <input [(ngModel)]="newPhotoTitle" placeholder="Photo title">
+      <input [(ngModel)]="newPhotoUrl" placeholder="Photo URL">
+      <button (click)="addPhoto()">Add Photo</button>
+    </div>
+  
+    <div class="photo-gallery">
+      <div class="photo-card" *ngFor="let photo of photos" (click)="openPhoto(photo.url)">
+        <img [src]="photo.url">
+        <p>{{ photo.title }}</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal" *ngIf="selectedPhoto" (click)="selectedPhoto = null">
+    <img [src]="selectedPhoto">
+  </div>
+  
