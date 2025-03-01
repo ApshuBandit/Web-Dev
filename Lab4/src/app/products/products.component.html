@@ -1,2 +1,41 @@
-<p>products works!</p>
+<div class="filter-container">
+    <select [(ngModel)]="selectedCategory">
+      <option value="Все">Все категории</option>
+      <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+    </select>
+</div>
 
+<div class="products-container">
+    <div *ngFor="let product of getFilteredProducts()" class="product-card">
+        <div class="image-gallery">
+            <img [src]="product.images[0]" class="main-image" />
+            <div class="thumbnail-gallery">
+                <img *ngFor="let img of product.images; let i = index" 
+                     [src]="img" 
+                     (click)="changeImage(product, i)" 
+                     class="thumbnail" />
+            </div>
+        </div>
+        <h2>{{ product.name }}</h2>
+        <p>{{ product.description }}</p>
+        <p>Рейтинг: {{ product.rating }}/5</p>
+        <div class="buttons">
+            <a [href]="product.link" class="link" target="_blank">Перейти на сайт</a>
+            <a [href]="getShareLink('whatsapp', product.link)" target="_blank">Поделиться в WhatsApp</a>
+            <a [href]="getShareLink('telegram', product.link)" target="_blank">Поделиться в Telegram</a>
+            <button (click)="addToCart(product)">Добавить в корзину</button>
+        </div>
+    </div>
+</div>
+
+<!-- Корзина -->
+<div class="cart-container">
+    <h2>Корзина</h2>
+    <div *ngIf="cart.length === 0">Корзина пуста</div>
+    <ul>
+        <li *ngFor="let item of cart; let i = index">
+            {{ item.name }} 
+            <button (click)="removeFromCart(i)">Удалить</button>
+        </li>
+    </ul>
+</div>
