@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent {
+export class ProductsComponent implements OnInit {
   selectedCategory = 'Все';
   categories = ['Часы', 'Музыка', 'Смартфоны', 'Компьютеры', 'Игрушки'];
   cart: any[] = [];
@@ -52,18 +52,27 @@ export class ProductsComponent {
       link: 'https://kaspi.kz/shop/p/lineup-newcomponents2-chernyi-114538061/?c=353220100'
     },
     {
-    images:[
-      'https://resources.cdn-kaspi.kz/img/m/p/h32/h70/84378448199710.jpg?format=gallery-medium',
-      'https://resources.cdn-kaspi.kz/img/m/p/h35/h8f/84378448232478.jpg?format=gallery-medium',
-      'https://resources.cdn-kaspi.kz/img/m/p/hfe/h17/64208876634142.jpg?format=gallery-medium'
-    ],
-    name: 'Iphone 13 ',
-    categories: ['Смартфоны'],
-    description: 'Iphone 13 128 GB',
-    rating: 4.9,
-    link: 'https://kaspi.kz/shop/p/apple-iphone-13-128gb-chernyi-102298404/?c=353220100'
-  }
+      images:[
+        'https://resources.cdn-kaspi.kz/img/m/p/h32/h70/84378448199710.jpg?format=gallery-medium',
+        'https://resources.cdn-kaspi.kz/img/m/p/h35/h8f/84378448232478.jpg?format=gallery-medium',
+        'https://resources.cdn-kaspi.kz/img/m/p/hfe/h17/64208876634142.jpg?format=gallery-medium'
+      ],
+      name: 'Iphone 13 ',
+      categories: ['Смартфоны'],
+      description: 'Iphone 13 128 GB',
+      rating: 4.9,
+      link: 'https://kaspi.kz/shop/p/apple-iphone-13-128gb-chernyi-102298404/?c=353220100'
+    }
   ];
+
+  ngOnInit() {
+    
+    const savedCart = localStorage.getItem('cart');
+    if (savedCart) {
+      this.cart = JSON.parse(savedCart);
+    }
+  }
+
   
   getFilteredProducts() {
     return this.products.filter(product => 
@@ -86,9 +95,15 @@ export class ProductsComponent {
 
   addToCart(product: any) {
     this.cart.push(product);
+    this.saveCart();
   }
 
   removeFromCart(index: number) {
     this.cart.splice(index, 1);
+    this.saveCart();
+  }
+
+  saveCart() {
+    localStorage.setItem('cart', JSON.stringify(this.cart));
   }
 }
