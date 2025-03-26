@@ -1,27 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-albums',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule, HttpClientModule],
   template: `
     <div class="container">
       <h1>Albums</h1>
       <input [(ngModel)]="newAlbumTitle" placeholder="New album title">
       <button (click)="addAlbum()">Add Album</button>
-
       <ul *ngIf="albums.length > 0; else noAlbums">
         <li *ngFor="let album of albums">
           <a [routerLink]="['/albums', album.id]">{{ album.title }}</a>
           <button (click)="deleteAlbum(album.id)">🗑</button>
         </li>
       </ul>
-
       <ng-template #noAlbums>
-        <p>No albums yet. Create one!</p>
+        <p>Loading albums...</p>
       </ng-template>
     </div>
   `,
@@ -89,17 +88,23 @@ export class AlbumsComponent {
   albums: any[] = [];
   newAlbumTitle: string = '';
 
+  constructor(private http: HttpClient) {
+    this.loadAlbums();
+  }
+
+  loadAlbums() {
+    this.http.get<any[]>('https://jsonplaceholder.typicode.com/albums')
+      .subscribe(data => this.albums = data);
+  }
+
   addAlbum() {
     if (this.newAlbumTitle.trim() === '') return;
-
     const newAlbum = { id: Date.now(), title: this.newAlbumTitle };
-    this.albums.push(newAlbum);
+    this.albums.unshift(newAlbum);
     this.newAlbumTitle = '';
-    console.log('New album added:', newAlbum);
   }
 
   deleteAlbum(id: number) {
     this.albums = this.albums.filter(album => album.id !== id);
-    console.log(`Album ${id} deleted`);
   }
 }
